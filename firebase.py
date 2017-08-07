@@ -73,8 +73,6 @@ def add_translation(word_type, word, *translations):
 		}
 		word_id = db.push(data)["name"]
 
-	
-
 	id_list = []
 
 	for translation in translations:
@@ -93,21 +91,33 @@ def add_translation(word_type, word, *translations):
 		add_links(word_id, id)
 
 
-# def remove(word):
+def remove(word):
+	word_id = find_word(word)
+	if word_id is None:
+		return
+	# go into each translation link and remove the link on that end
+	# and then delete this node
+	for item in db.child(word_id).get().each():
+		# print(item.val())
+		if not isinstance(item.val(), str):
+			translation_id = item.val()["translation"]
+			# print(translation_id)
+			remove_link(translation_id, word_id)
+	db.child(word_id).remove()
 
-
-# def edit(word, new_translation):
-
-
-# def find_translation(word):
-
-
+#remove link from word to translation (remove node within word_id)
+def remove_link(word_id, translation_id):
+	for item in db.child(word_id).get().each():
+		if not isinstance(item.val(), str) and translation_id in item.val().values():
+			print(item.key())
+			db.child(word_id).child(item.key()).remove()
 
 
 def main():
 	# find_word("doggo")
 	# add_translation(True, "woofwoof", "dog", "cow", "canine")
-	add_translation(False, "dog", "woofwoof", "doggo")
+	# add_translation(False, "dog", "woofwoof", "doggo")
+	remove("dog")
 
 
 if __name__ == "__main__":
