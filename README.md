@@ -8,6 +8,8 @@ Have you ever needed to know what "waterboye" or "subwoofer" (no, not the speake
 
 The translation data is represented as a many-to-many database since our translations can have different words, such as `seal,sea lion <-> water doggo,waterboye`.
 
+A word can only be either english or doggospeak, not both.
+
 *random translation given lol?*
 
 The data will be stored like this:
