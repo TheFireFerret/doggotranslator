@@ -1,10 +1,8 @@
 from flask import Flask, request, render_template, url_for, redirect
-from doggobackend import add_translation, get_translations, get_word_type, load_all
+from doggobackend import add_translation, get_translations, get_word_type, load_all, check_swearsies
 import urllib.parse as urlparse
-
 application = Flask(__name__)
 
-@application.route('/word')
 @application.route('/')
 def home():
     return render_template('index.html')
@@ -13,8 +11,14 @@ def home():
 def page_not_found(e):
     return render_template('404.html'), 404
 
+@application.route('/swearsies')
+def swearsies():
+    return render_template('swearsies.html')
+
 @application.route('/word/<string:word>')
 def search(word):
+	if check_swearsies(word):
+		return swearsies()
 	word_type = get_word_type(word)
 	if word_type is None:
 		return render_template('404.html'), 404
@@ -23,6 +27,8 @@ def search(word):
 	if word_type == "pupperspeak":
 		trans_type = "english"
 	translations = get_translations(word)
+	if translations is False:
+		return swearsies()
 	return render_template('word.html', word=word, word_type=word_type, translations=translations, trans_type=trans_type)
 
 @application.route('/api/add', methods=['POST'])
@@ -35,6 +41,9 @@ def new_translation():
 
 	word = inputs.pop("word", None)[0]
 	translations = [item[0] for name, item in inputs.items()]
+
+	if check_swearsies(word) or check_swearsies(*translations):
+		return swearsies()
 
 	print("@@@@@@@@NEW_TRANSLATION_API@@@@@@@@")
 	print("type: " + str(type_req))

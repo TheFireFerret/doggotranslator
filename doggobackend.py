@@ -1,5 +1,6 @@
 import pyrebase
 import os
+from bad_words import bad_words
 
 config = {
 	  "databaseURL": os.environ['databaseURL'],
@@ -165,6 +166,12 @@ def load_all():
 		return words
 	except TypeError:
 		return None
+
+def check_swearsies(*words):
+	for word in words:
+		if word.lower() in bad_words:
+			return True
+	return False
 
 
 # def main():
