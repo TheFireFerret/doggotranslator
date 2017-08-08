@@ -51,3 +51,9 @@ def view_all():
 # 	# translations = get_translations(term)
 # 	# print(translations)
 # 	return redirect(url_for('search', word=term))
+
+if __name__ == "__main__":
+    # Setting debug to True enables debug output. This line should be
+    # removed before deploying a production app.
+    # application.debug = True
+    app.run()

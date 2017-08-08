@@ -42,4 +42,4 @@ Hosting will be done on AWS, which should support both the website and the bot a
 
 ~~post how to setup here once done~~
 
-
+http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html lol
