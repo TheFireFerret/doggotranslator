@@ -113,11 +113,25 @@ def remove_link(word_id, translation_id):
 			db.child(word_id).child(item.key()).remove()
 
 
+def get_translations(word):
+	print(word)
+	word_id = find_word(word)
+	if word_id is None:
+		return None
+
+	translations = []
+	for item in db.child(word_id).get().each():
+		if not isinstance(item.val(), str):
+			translations.append(db.child(item.val()["translation"]).get().val()["word"])
+
+	return translations
+
 def main():
 	# find_word("doggo")
 	# add_translation(True, "woofwoof", "dog", "cow", "canine")
 	# add_translation(False, "dog", "woofwoof", "doggo")
-	remove("dog")
+	# remove("dog")
+	get_translations("woofwoof")
 
 
 if __name__ == "__main__":
