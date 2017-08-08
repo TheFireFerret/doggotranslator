@@ -1,6 +1,5 @@
 import pyrebase
 import os
-import logging
 
 config = {
 	  "databaseURL": os.environ['databaseURL'],
@@ -12,10 +11,6 @@ config = {
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-
-
 # TODO make it all case-insensitive
 
 def find_word(word):
@@ -24,11 +19,14 @@ def find_word(word):
 	word (string): the word to search for
 	Returns the word ID if it exists, otherwise None
 	"""
+	print("finding word: " + word)
 	try:
 		all_words = db.get()
 		for item in all_words.each():
 			if word in item.val()["word"]:
+				print("found word: " + word)
 				return item.key()
+		print("did not find word: " + word)
 		return None
 	except TypeError:
 		return None
@@ -69,7 +67,9 @@ def add_translation(word_type, word, *translations):
 		*translations (string): one or more translation definitions for word
 	"""
 
-	logger.info("word type: " + str(word_type) + "word: " + word + "trans: " + str(list(translations)))
+	print(word_type)
+	print(word)
+	print(translations)
 	
 	word_id = find_word(word)
 	if not word_id:
