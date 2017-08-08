@@ -11,8 +11,6 @@ config = {
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
-# TODO make it all case-insensitive
-
 def find_word(word):
 	"""
 	Checks if a word exists in database
@@ -70,6 +68,9 @@ def add_translation(word_type, word, *translations):
 	print(word_type)
 	print(word)
 	print(translations)
+
+	word = word.upper()
+
 	
 	word_id = find_word(word)
 	if not word_id:
@@ -84,6 +85,7 @@ def add_translation(word_type, word, *translations):
 	id_list = []
 
 	for translation in translations:
+		translation = translation.upper()
 		print("TRANSLATION::: " + translation)
 		id = find_word(translation)
 		if not id:
@@ -123,6 +125,7 @@ def remove_link(word_id, translation_id):
 
 
 def get_translations(word):
+	word = word.upper()
 	# print(word)
 	word_id = find_word(word)
 	if word_id is None:
@@ -136,6 +139,7 @@ def get_translations(word):
 	return translations
 
 def get_word_type(word):
+	word = word.upper()
 	try:
 		all_words = db.get()
 		for item in all_words.each():

@@ -13,7 +13,6 @@ def home():
 def page_not_found(e):
     return render_template('404.html'), 404
 
-# TODO add word not found page
 @application.route('/word/<string:word>')
 def search(word):
 	word_type = get_word_type(word)
@@ -48,6 +47,8 @@ def new_translation():
 @application.route('/all')
 def view_all():
 	words = load_all()
+	if words is None:
+		return render_template('404.html'), 404
 	return render_template('list.html', words=words)
 
 # TODO for bot, return words only
