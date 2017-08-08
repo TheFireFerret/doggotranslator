@@ -38,8 +38,7 @@ Both the discord bot and the website will share a single python backend on top o
 ## Phase One: Website
 The home page will be simple search bar that would provide the translations, preferbably done through [React](https://facebook.github.io/react/) to avoid page reloads. A seperate page would have translation additions, deletions, and edits. 
 
-Hosting will be done on AWS, which should support both the website and the bot at once, for very cheap.
+Hosting will be done on AWS, which ~~should~~ support both the website and the bot at once
 
-~~post how to setup here once done~~
 
-http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html lol
+[use the aws docs for setup](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html) lol

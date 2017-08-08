@@ -11,3 +11,5 @@ env
 !.elasticbeanstalk/*.global.yml
 
 notes.txt
+
+*.pyc
