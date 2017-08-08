@@ -131,7 +131,8 @@ def main():
 	# add_translation(True, "woofwoof", "dog", "cow", "canine")
 	# add_translation(False, "dog", "woofwoof", "doggo")
 	# remove("dog")
-	get_translations("woofwoof")
+	# get_translations("woofwoof")
+	print("wow!")
 
 
 if __name__ == "__main__":
