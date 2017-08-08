@@ -162,17 +162,17 @@ def load_all():
 		return None
 
 
-def main():
-	# find_word("doggo")
-	# add_translation(True, "woofwoof", "dog", "cow", "canine")
-	# add_translation(False, "dog", "woofwoof", "doggo")
-	# add_translation(False, "puppy", "pupper", "pupperino")
+# def main():
+# 	# find_word("doggo")
+# 	# add_translation(True, "woofwoof", "dog", "cow", "canine")
+# 	# add_translation(False, "dog", "woofwoof", "doggo")
+# 	# add_translation(False, "puppy", "pupper", "pupperino")
 
-	# remove("dog")
-	# get_translations("woofwoof")
-	# print("wow! everything must've worked!")
-	# print(load_all())
+# 	# remove("dog")
+# 	# get_translations("woofwoof")
+# 	print("wow!")
+# 	# print(load_all())
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
