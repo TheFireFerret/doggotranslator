@@ -1,5 +1,6 @@
 import pyrebase
 import os
+import logging
 
 config = {
 	  "databaseURL": os.environ['databaseURL'],
@@ -10,6 +11,9 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 
 # TODO make it all case-insensitive
@@ -65,9 +69,7 @@ def add_translation(word_type, word, *translations):
 		*translations (string): one or more translation definitions for word
 	"""
 
-	# print(word_type)
-	# print(word)
-	# print(translations)
+	logger.info("word type: " + word_type + "word: " + word + "trans: " + lisT(translations))
 	
 	word_id = find_word(word)
 	if not word_id:
@@ -115,12 +117,12 @@ def remove(word):
 def remove_link(word_id, translation_id):
 	for item in db.child(word_id).get().each():
 		if not isinstance(item.val(), str) and translation_id in item.val().values():
-			print(item.key())
+			# print(item.key())
 			db.child(word_id).child(item.key()).remove()
 
 
 def get_translations(word):
-	print(word)
+	# print(word)
 	word_id = find_word(word)
 	if word_id is None:
 		return None
@@ -169,7 +171,7 @@ def main():
 	# remove("dog")
 	# get_translations("woofwoof")
 	# print("wow! everything must've worked!")
-	print(load_all())
+	# print(load_all())
 
 
 if __name__ == "__main__":
