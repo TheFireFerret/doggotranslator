@@ -35,6 +35,10 @@ def new_translation():
 		type_req = True 
 
 	translations = [item for name, item in list(inputs.items())]
+	print("@@@@@@@@NEW_TRANSLATION_API@@@@@@@@")
+	print("type: " + str(type_req))
+	print("word: " + inputs["word"])
+	print("trans: " + str(list(translations[2:])))
 	add_translation(type_req, inputs["word"], *list(translations[2:]))
 	return redirect(url_for('home'))
 

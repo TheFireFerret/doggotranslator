@@ -23,10 +23,9 @@ def find_word(word):
 	try:
 		all_words = db.get()
 		for item in all_words.each():
-			if word in item.val()["word"]:
+			if word == item.val()["word"]:
 				print("found word: " + word)
 				return item.key()
-		print("did not find word: " + word)
 		return None
 	except TypeError:
 		return None
@@ -126,7 +125,7 @@ def get_translations(word):
 	word_id = find_word(word)
 	if word_id is None:
 		return None
-
+	print("get_translations word_id: " + word_id)
 	translations = []
 	for item in db.child(word_id).get().each():
 		if not isinstance(item.val(), str):
@@ -138,7 +137,7 @@ def get_word_type(word):
 	try:
 		all_words = db.get()
 		for item in all_words.each():
-			if word in item.val()["word"]:
+			if word == item.val()["word"]:
 				return item.val()["type"]
 		return None
 	except TypeError:
