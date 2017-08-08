@@ -1,1 +1,43 @@
-hi
+{% include "header.html" %}
+
+
+<header>
+	<div class="header-content">
+		<div class="header-content-inner">
+			<h1 id="homeHeading">{{ word }}</h1>
+			<p>{{ word_type }}</p>
+			<hr>
+			{% for translation in translations %}
+   				<h1>{{ translation }}</h1>
+
+			{% endfor %}
+			<p>{{ trans_type }}</p>
+		</div>
+		<form>
+			<div class="col-md-8 col-md-offset-2">
+				<div class="form-group">
+					<input type="text" class="form-control" id="term" placeholder="Search Term..." name="term">
+				</div>
+			</div>
+			<div class="col-sm-12">
+			</div>
+			<div>
+				<button type="submit" class="btn btn-primary btn-xl">Search</button>
+			</div>
+		</form>
+</header>
+
+
+
+<aside class="bg-dark">
+    <div class="container text-center">
+        <div class="call-to-action">
+            <h2>Free Download at Start Bootstrap!</h2>
+            <a href="http://startbootstrap.com/template-overviews/creative/" class="btn btn-default btn-xl sr-button">Download Now!</a>
+        </div>
+    </div>
+</aside>
+
+
+{% include "footer.html" %}
+

@@ -1,12 +1,30 @@
-from flask import Flask, request, render_template, flash
-from doggobackend import add_translation, get_translations
+from flask import Flask, request, render_template, url_for, redirect
+from doggobackend import add_translation, get_translations, get_word_type
 import urllib.parse as urlparse
 
 app = Flask(__name__)
 
+@app.route('/word')
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+# TODO add word not found page
+@app.route('/word/<string:word>')
+def search(word):
+	word_type = get_word_type(word)
+	if word_type is None:
+		return render_template('404.html'), 404
+
+	trans_type = "pupperspeak"
+	if word_type == "pupperspeak":
+		trans_type = "english"
+	translations = get_translations(word)
+	return render_template('word.html', word=word, word_type=word_type, translations=translations, trans_type=trans_type)
 
 @app.route('/api/add', methods=['POST'])
 def add_translation():
@@ -20,10 +38,11 @@ def add_translation():
 	add_translation(type_req, inputs["word"], *list(translations[2:]))
 	return render_template('word.html')
 
-@app.route('/api/search', methods=['POST'])
-def search_translation():
-	term = request.form['term']
-	print(term)
-	translations = get_translations(term)
-	print(translations)
-	return render_template('word.html')
+# TODO for bot, return words only
+# @app.route('/api/search', methods=['POST'])
+# def search_translation():
+# 	term = request.form['term']
+# 	# print(term)
+# 	# translations = get_translations(term)
+# 	# print(translations)
+# 	return redirect(url_for('search', word=term))

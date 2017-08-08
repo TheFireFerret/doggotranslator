@@ -48,7 +48,7 @@ def add_links(word_id, translation_id):
 		data = {"translation": word_id}
 		db.child(translation_id).push(data)
 
-word_types=["english", "doggospeak"]
+word_types=["english", "pupperspeak"]
 
 
 def add_translation(word_type, word, *translations):
@@ -130,13 +130,25 @@ def get_translations(word):
 
 	return translations
 
+def get_word_type(word):
+	try:
+		all_words = db.get()
+		for item in all_words.each():
+			if word in item.val()["word"]:
+				return item.val()["type"]
+		return None
+	except TypeError:
+		return None
+
 def main():
 	# find_word("doggo")
 	# add_translation(True, "woofwoof", "dog", "cow", "canine")
 	add_translation(False, "dog", "woofwoof", "doggo")
+	add_translation(False, "puppy", "pupper", "pupperino")
+
 	# remove("dog")
 	# get_translations("woofwoof")
-	print("wow!")
+	print("wow! everything must've worked!")
 
 
 if __name__ == "__main__":
