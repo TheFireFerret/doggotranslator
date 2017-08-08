@@ -69,7 +69,7 @@ def add_translation(word_type, word, *translations):
 		*translations (string): one or more translation definitions for word
 	"""
 
-	logger.info("word type: " + str(word_type) + "word: " + word + "trans: " + list(translations))
+	logger.info("word type: " + str(word_type) + "word: " + word + "trans: " + str(list(translations)))
 	
 	word_id = find_word(word)
 	if not word_id:
