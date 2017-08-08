@@ -1,8 +1,6 @@
 
 *.sh
 
-*.txt
-
 env
 
 *.pyc
@@ -11,3 +9,5 @@ env
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+notes.txt
