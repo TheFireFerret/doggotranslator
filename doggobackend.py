@@ -66,6 +66,7 @@ def add_translation(word_type, word, *translations):
 	# print(word_type)
 	# print(word)
 	# print(translations)
+	
 	word_id = find_word(word)
 	if not word_id:
 		print("no word found for: " + word)
@@ -132,7 +133,7 @@ def get_translations(word):
 def main():
 	# find_word("doggo")
 	# add_translation(True, "woofwoof", "dog", "cow", "canine")
-	# add_translation(False, "dog", "woofwoof", "doggo")
+	add_translation(False, "dog", "woofwoof", "doggo")
 	# remove("dog")
 	# get_translations("woofwoof")
 	print("wow!")
