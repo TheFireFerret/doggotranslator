@@ -28,18 +28,21 @@ def search(word):
 
 @application.route('/api/add', methods=['POST'])
 def new_translation():
-	print(request.form)
-	inputs = request.form
+	# print(request.form)
+	inputs = dict(request.form)
 	type_req = False
-	if inputs["type"] == "True":
+	if inputs.pop("type", None) == "True":
 		type_req = True 
 
-	translations = [item for name, item in list(inputs.items())]
+	word = inputs.pop("word", None)[0]
+	translations = [item[0] for name, item in inputs.items()]
+
 	print("@@@@@@@@NEW_TRANSLATION_API@@@@@@@@")
 	print("type: " + str(type_req))
-	print("word: " + inputs["word"])
-	print("trans: " + str(list(translations[2:])))
-	add_translation(type_req, inputs["word"], *list(translations[2:]))
+	print("word: " + str(word))
+	print("trans: " + str(translations))
+
+	add_translation(type_req, word, *translations)
 	return redirect(url_for('home'))
 
 @application.route('/all')

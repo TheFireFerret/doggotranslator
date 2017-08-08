@@ -24,7 +24,7 @@ def find_word(word):
 		all_words = db.get()
 		for item in all_words.each():
 			if word == item.val()["word"]:
-				print("found word: " + word)
+				# print("found word: " + word)
 				return item.key()
 		return None
 	except TypeError:
@@ -66,6 +66,7 @@ def add_translation(word_type, word, *translations):
 		*translations (string): one or more translation definitions for word
 	"""
 
+	print("######### add translation ##########")
 	print(word_type)
 	print(word)
 	print(translations)
@@ -83,6 +84,7 @@ def add_translation(word_type, word, *translations):
 	id_list = []
 
 	for translation in translations:
+		print("TRANSLATION::: " + translation)
 		id = find_word(translation)
 		if not id:
 			print("no translation found for: " + translation)
