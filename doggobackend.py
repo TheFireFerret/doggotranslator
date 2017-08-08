@@ -63,6 +63,9 @@ def add_translation(word_type, word, *translations):
 		*translations (string): one or more translation definitions for word
 	"""
 
+	# print(word_type)
+	# print(word)
+	# print(translations)
 	word_id = find_word(word)
 	if not word_id:
 		print("no word found for: " + word)
