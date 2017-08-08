@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, url_for, redirect
-from doggobackend import add_translation, get_translations, get_word_type
+from doggobackend import add_translation, get_translations, get_word_type, load_all
 import urllib.parse as urlparse
 
 app = Flask(__name__)
@@ -27,7 +27,7 @@ def search(word):
 	return render_template('word.html', word=word, word_type=word_type, translations=translations, trans_type=trans_type)
 
 @app.route('/api/add', methods=['POST'])
-def add_translation():
+def new_translation():
 	# print(request.form)
 	inputs = request.form
 	type_req = False
@@ -36,7 +36,12 @@ def add_translation():
 
 	translations = [item for name, item in list(inputs.items())]
 	add_translation(type_req, inputs["word"], *list(translations[2:]))
-	return render_template('word.html')
+	return redirect(url_for('home'))
+
+@app.route('/all')
+def view_all():
+	words = load_all()
+	return render_template('list.html', words=words)
 
 # TODO for bot, return words only
 # @app.route('/api/search', methods=['POST'])

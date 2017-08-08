@@ -4,13 +4,12 @@
     			<div class="col-lg-8 col-lg-offset-2 text-center">
     				<!-- <h2 class="section-heading">Let's Get In Touch!</h2> -->
     				<hr class="primary">
-    				<p>Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+    				<p>woof woof whats for lunch</p>
     			</div>
-<!--                 <div class="col-lg-4 col-lg-offset-2 text-center">
-                    <i class="fa fa-phone fa-3x sr-contact"></i>
-                    <p>123-456-6789</p>
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+					<a type="submit" href="{{ url_for('view_all') }}" class="btn btn-primary btn-xl">See All Words</a>
                 </div>
-                <div class="col-lg-4 text-center">
+<!--                 <div class="col-lg-4 text-center">
                     <i class="fa fa-envelope-o fa-3x sr-contact"></i>
                     <p><a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a></p>
                 </div> -->
@@ -31,16 +30,38 @@
 
     <!-- Theme JavaScript -->
     <script src="{{ url_for('static', filename='js/creative.min.js') }}"></script>
-    
+
     <!-- search redirect -->
     <script type="text/javascript">
     	$(function() {
-    		$('form').submit(function(){
+    		$('#search_form').submit(function(){
     			window.location = '/word/' + $('#term').val();
     			return false;
     		});
     	});
     </script>
+
+    <script type="text/javascript">
+	$(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $("#word_fields"); //Fields wrapper
+    var add_button      = $("#more_words_btn"); //Add button ID
+    
+    var x = 0; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<input type="text" class="form-control" id="term' + x + '" placeholder="new translation..." name="term' + x + '">'); //add input box
+        }
+    });
+    
+    // TODO make this work
+    // $(wrapper).on("click","#remove_field", function(e){ //user click on remove text
+    //     e.preventDefault(); $(this).parent('div').remove(); x--;
+    // })
+});
+</script>
 </body>
 
 </html>

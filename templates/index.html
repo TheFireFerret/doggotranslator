@@ -7,7 +7,7 @@
 			<h1 id="homeHeading">Doggo Translator</h1>
 			<hr>
 			<p>Enter a word and have it translated to or from pupperspeak!</p>
-			<form>
+			<form id="search_form">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="form-group">
 						<input type="text" class="form-control input-lg" id="term" placeholder="Search Term..." name="term">
@@ -34,29 +34,40 @@
 			<div class="col-lg-8 col-lg-offset-2 text-center">
 				<h2 class="section-heading">New translations? Add them here!</h2>
 				<hr class="light">
-				<form action="{{ url_for('add_translation') }}" method=post class=add-entry>
+				<form action="{{ url_for('new_translation') }}" method=post class=add-entry>
 					<div class="form-group">
 						<fieldset class="form-group">
 							<div class="form-check">
 								<label class="form-check-label">
-									<input type="radio" class="form-check-input" name="optionsRadios" id="eng" value="True" checked>
+									<input type="radio" class="form-check-input" name="type" id="eng" value="True" checked>
 									English to Pupperspeak
 								</label>
 							</div>
 							<div class="form-check">
 								<label class="form-check-label">
-									<input type="radio" class="form-check-input" name="optionsRadios" id="pup" value="False">
+									<input type="radio" class="form-check-input" name="type" id="pup" value="False">
 									Pupperspeak to English
 								</label>
 							</div>
+							<div class="col-md-8 col-md-offset-2">
+								<input type="text" class="form-control" id="term" placeholder="new word..." name="word">
+								<br>
+								<div class="form-group" id="word_fields">
+									<input type="text" class="form-control" id="term" placeholder="new translation..." name="term">
+								</div>
+								<div>
+									<button type="button" class="btn btn-default btn-sm" id="more_words_btn">Add More</button>
+								</div>
+								<!-- TODO add close button -->
+								<br>
+							<button type="submit" class="btn btn-default btn-lg" id="more_words_btn">Submit</button>
 
-
+							</div>
 						</fieldset>
 					</div>
-
-
-
 				</form>
+
+
 
 				<!-- <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a> -->
 			</div>

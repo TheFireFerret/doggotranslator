@@ -12,6 +12,8 @@ firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
 
+# TODO make it all case-insensitive
+
 def find_word(word):
 	"""
 	Checks if a word exists in database
@@ -140,15 +142,34 @@ def get_word_type(word):
 	except TypeError:
 		return None
 
+def load_all():
+	words = []
+	try:
+		all_words = db.get()
+		for item in all_words.each():
+			if item.val()["word"]:
+				# print(item.val()["word"])
+				words.append(item.val()["word"])
+			# word = item.val()["word"]
+			# print(word)
+			# words.append[word]
+		# print(words)
+		list.sort(words)
+		return words
+	except TypeError:
+		return None
+
+
 def main():
 	# find_word("doggo")
 	# add_translation(True, "woofwoof", "dog", "cow", "canine")
-	add_translation(False, "dog", "woofwoof", "doggo")
-	add_translation(False, "puppy", "pupper", "pupperino")
+	# add_translation(False, "dog", "woofwoof", "doggo")
+	# add_translation(False, "puppy", "pupper", "pupperino")
 
 	# remove("dog")
 	# get_translations("woofwoof")
-	print("wow! everything must've worked!")
+	# print("wow! everything must've worked!")
+	print(load_all())
 
 
 if __name__ == "__main__":
