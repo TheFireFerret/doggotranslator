@@ -28,7 +28,7 @@ def search(word):
 
 @application.route('/api/add', methods=['POST'])
 def new_translation():
-	# print(request.form)
+	print(request.form)
 	inputs = request.form
 	type_req = False
 	if inputs["type"] == "True":
