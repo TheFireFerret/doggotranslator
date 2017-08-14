@@ -40,17 +40,33 @@ def new_translation():
 		type_req = True 
 
 	word = inputs.pop("word", None)[0]
+	# print(inputs.items())
+	if word == "":
+		print("Nothing inputted")
+		return redirect(url_for('home'))
 	translations = [item[0] for name, item in inputs.items()]
+	for trans in translations:
+		if trans == "":
+			return redirect(url_for('home'))
 
 	if check_swearsies(word) or check_swearsies(*translations):
 		return swearsies()
 
-	print("@@@@@@@@NEW_TRANSLATION_API@@@@@@@@")
+	print("@@@@@@@@ NEW_TRANSLATION_API @@@@@@@@")
 	print("type: " + str(type_req))
 	print("word: " + str(word))
 	print("trans: " + str(translations))
 
 	add_translation(type_req, word, *translations)
+	return redirect(url_for('home'))
+
+
+@application.route('/edit/<string:word>')
+def edit_view(word):
+	return render_template('edit.html', word=word)
+
+@application.route('/api/edit', methods=['POST'])
+def edit():
 	return redirect(url_for('home'))
 
 @application.route('/all')

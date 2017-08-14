@@ -57,7 +57,6 @@ word_types=["english", "pupperspeak"]
 
 def add_translation(word_type, word, *translations):
 	"""
-	# TODO: check if words exist yet, if they do, update them
 
 	Adds a new translation to database
 
@@ -66,6 +65,10 @@ def add_translation(word_type, word, *translations):
 		word (string): the word to translate
 		*translations (string): one or more translation definitions for word
 	"""
+	print(type(translations))
+
+	if word == "" or not translations:
+		return
 
 	print("######### add translation ##########")
 	print(word_type)
@@ -126,6 +129,16 @@ def remove_link(word_id, translation_id):
 			# print(item.key())
 			db.child(word_id).child(item.key()).remove()
 
+def edit_word(word, new_word, new_type):
+	word_id = find_word(word)
+	if word_id is None:
+		print("Edit failed for word: " + word)
+		return
+
+	# update the word to new_word and change the word type, keeping all links
+	word_db = db.child(word_id)
+
+
 
 def get_translations(word):
 	word = word.upper()
@@ -176,6 +189,7 @@ def check_swearsies(*words):
 
 
 # def main():
+	# edit_word("")
 # 	# find_word("doggo")
 # 	# add_translation(True, "woofwoof", "dog", "cow", "canine")
 # 	# add_translation(False, "dog", "woofwoof", "doggo")
