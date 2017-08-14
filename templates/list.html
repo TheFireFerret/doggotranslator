@@ -1,22 +1,66 @@
+
+
 {% include "header.html" %}
 
-<style type="text/css">
-	.link-list {
-		color: #ffffff;
-		text-decoration: underline 
-	}
-</style>
-<header>
+<link href="{{ url_for('static', filename='css/list.css') }}" rel="stylesheet">
+
+
+<header class="header">
 	<div class="header-content">
 		<div class="header-content-inner ">
-			<h1>All Words</h1>
-			<hr>
-			{% for word in words %}
-   			<h4><a class="link-list" href="{{ url_for('search', word=word)}}">{{ word }}</a></h4>
-			{% endfor %}
-			</div>
+			<h1>ALL THE WORDS</h1>
+		</div>
+		<br>
+		<div>
+			<a href="#list" class="btn btn-primary btn-xl page-scroll">
+			<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+				DO A BROWSE
+				<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+			</a>
 		</div>
 </header>
 
+<section id="list">
+<div class="container">
+		<div class="row">
+			<div class="text-center">
+				<h2>TYPE OF WORD</h2>
+				<button class="btn btn-primary" id="pupper">pupper</button>
+				<button class="btn btn-primary" id="all">all</button>
+				<button class="btn btn-primary" id="eng">english</button>
+				<hr>
+			</div>
+		</div>
+
+		<div class="row">
+			{% for word in words %}
+			<div class="col-md-2 text-center padded" id="{{ word[1] }}"><a class="link-list" href="{{ url_for('search', word=word[0])}}">{{ word[0] }}</a></div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+
+
 
 {% include "footer.html" %}
+
+<script type="text/javascript">
+$("#pupper").click(function(){
+    $("#english").hide();
+    $("#pupperspeak").show();
+});
+
+$("#eng").click(function(){
+    $("#pupperspeak").hide();
+    $("#english").show();
+
+});
+
+$("#all").click(function(){
+    $("#pupperspeak").show();
+    $("#english").show();
+
+});
+
+</script>

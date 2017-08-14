@@ -1,6 +1,8 @@
 import pyrebase
 import os
 from bad_words import bad_words
+from operator import itemgetter
+
 
 config = {
 	  "databaseURL": os.environ['databaseURL'],
@@ -150,19 +152,18 @@ def get_word_type(word):
 	except TypeError:
 		return None
 
+# returns tuples of ["word", "type"]
 def load_all():
 	words = []
 	try:
 		all_words = db.get()
 		for item in all_words.each():
 			if item.val()["word"]:
-				# print(item.val()["word"])
-				words.append(item.val()["word"])
-			# word = item.val()["word"]
-			# print(word)
-			# words.append[word]
-		# print(words)
-		list.sort(words)
+				words.append((item.val()["word"], item.val()["type"]))
+		print(words)
+		words.sort(key=itemgetter(0))
+		print(words)
+
 		return words
 	except TypeError:
 		return None

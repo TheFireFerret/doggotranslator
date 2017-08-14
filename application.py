@@ -56,6 +56,7 @@ def new_translation():
 @application.route('/all')
 def view_all():
 	words = load_all()
+	# print(words[0])
 	if words is None:
 		return render_template('404.html'), 404
 	return render_template('list.html', words=words)
