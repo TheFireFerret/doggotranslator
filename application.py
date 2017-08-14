@@ -31,8 +31,10 @@ def search(word):
 	translations = get_translations(word)
 	if translations is False:
 		return swearsies()
+
+	trans_types = get_word_type_list(translations)
 	
-	return render_template('word.html', word=word, word_type=word_type, translations=translations, trans_type=trans_type)
+	return render_template('word.html', word=word, word_type=word_type, translations=translations, trans_types=trans_types)
 
 @application.route('/api/add', methods=['POST'])
 def new_translation():

@@ -169,14 +169,15 @@ def get_word_type(word):
 
 def get_word_type_list(words):
 	lists = []
+	all_words = db.get()
 	for word in words:
+		print(word + "~~~~")
 		word = word.upper()
 		try:
-			all_words = db.get()
 			for item in all_words.each():
 				if word == item.val()["word"]:
 					lists.append(item.val()["type"])
-			return None
+					print("Found it!")
 		except TypeError:
 			return None
 	return lists

@@ -14,9 +14,9 @@
 			<h1>{{ translation }} <a href="{{ url_for('edit_view', word=translation)}}">
 				<button class="btn btn-primary">EDIT</button>
 			</a></h1>
-			
+			<p>{{ trans_types[loop.index0]}}</p>
 			{% endfor %}
-			<p>{{ trans_type }}</p>
+
 
 		</div>
 		<hr>
