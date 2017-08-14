@@ -138,6 +138,8 @@ def edit_word(word, new_word, new_type):
 	# update the word to new_word and change the word type, keeping all links
 	word_db = db.child(word_id)
 
+	data = {"type": new_type, "word": new_word.upper()}
+	word_db.update(data)
 
 
 def get_translations(word):
@@ -164,6 +166,20 @@ def get_word_type(word):
 		return None
 	except TypeError:
 		return None
+
+def get_word_type_list(words):
+	lists = []
+	for word in words:
+		word = word.upper()
+		try:
+			all_words = db.get()
+			for item in all_words.each():
+				if word == item.val()["word"]:
+					lists.append(item.val()["type"])
+			return None
+		except TypeError:
+			return None
+	return lists
 
 # returns tuples of ["word", "type"]
 def load_all():

@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, url_for, redirect
-from doggobackend import add_translation, get_translations, get_word_type, load_all, check_swearsies
+from doggobackend import add_translation, get_translations, get_word_type, load_all, check_swearsies, edit_word, get_word_type_list, remove
 import urllib.parse as urlparse
 application = Flask(__name__)
 
@@ -26,9 +26,12 @@ def search(word):
 	trans_type = "pupperspeak"
 	if word_type == "pupperspeak":
 		trans_type = "english"
+
+
 	translations = get_translations(word)
 	if translations is False:
 		return swearsies()
+	
 	return render_template('word.html', word=word, word_type=word_type, translations=translations, trans_type=trans_type)
 
 @application.route('/api/add', methods=['POST'])
@@ -63,11 +66,41 @@ def new_translation():
 
 @application.route('/edit/<string:word>')
 def edit_view(word):
-	return render_template('edit.html', word=word)
+	word_type = get_word_type(word)
+	if word_type is None:
+		return render_template('404.html'), 404
+	return render_template('edit.html', word=word, word_type=word_type)
 
 @application.route('/api/edit', methods=['POST'])
 def edit():
+
+	inputs = dict(request.form)
+	print(inputs)
+	word = inputs.pop("word", None)[0]
+	new_word = inputs.pop("new_word", None)[0]
+	new_type = inputs.pop("new_type", None)[0]
+
+	
+
+	if word == "" or new_word == "" or new_type == "":
+		return redirect(url_for('home'))
+	print("updating")
+	print(word)
+	print(new_word)
+	print(new_type)
+
+	edit_word(word, new_word, new_type)
+
+	return redirect(url_for('search', word=new_word))
+
+@application.route('/api/delete', methods=['POST'])
+def delete():
+	inputs = dict(request.form)
+	word = inputs.pop("word", None)[0]
+
+	remove(word)
 	return redirect(url_for('home'))
+
 
 @application.route('/all')
 def view_all():

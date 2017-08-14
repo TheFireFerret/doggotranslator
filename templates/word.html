@@ -4,15 +4,22 @@
 <header>
 	<div class="header-content">
 		<div class="header-content-inner">
-			<h1 id="homeHeading">{{ word }}</h1>
+			<h1 id="homeHeading">{{ word }} <a href="{{ url_for('edit_view', word=word)}}">
+				<button class="btn btn-primary">EDIT</button>
+			</a></h1>
 			<p>{{ word_type }}</p>
+			
 			<hr>
 			{% for translation in translations %}
-   				<h1>{{ translation }}</h1>
-
+			<h1>{{ translation }} <a href="{{ url_for('edit_view', word=translation)}}">
+				<button class="btn btn-primary">EDIT</button>
+			</a></h1>
+			
 			{% endfor %}
 			<p>{{ trans_type }}</p>
+
 		</div>
+		<hr>
 		<form id='search_form'>
 			<div class="col-md-8 col-md-offset-2">
 				<div class="form-group">
@@ -25,6 +32,6 @@
 				<button type="submit" class="btn btn-primary btn-xl">Search</button>
 			</div>
 		</form>
-</header>
+	</header>
 
-{% include "footer.html" %}
+	{% include "footer.html" %}
