@@ -9,7 +9,7 @@ def home():
 
 @application.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('404.html', msg="404 angery doggos ate the page or word you were looking for"), 404
 
 @application.route('/swearsies')
 def swearsies():
@@ -21,7 +21,7 @@ def search(word):
 		return swearsies()
 	word_type = get_word_type(word)
 	if word_type is None:
-		return render_template('404.html'), 404
+		return render_template('404.html', msg="We don't have a translation for this word yet! <a href='/#add-words'>Why not make one?</a>"), 404
 
 	trans_type = "pupperspeak"
 	if word_type == "pupperspeak":
@@ -70,7 +70,7 @@ def new_translation():
 def edit_view(word):
 	word_type = get_word_type(word)
 	if word_type is None:
-		return render_template('404.html'), 404
+		return render_template('404.html', msg="404 angery doggos ate the page or word you were looking for"), 404
 	return render_template('edit.html', word=word, word_type=word_type)
 
 @application.route('/api/edit', methods=['POST'])
@@ -109,7 +109,7 @@ def view_all():
 	words = load_all()
 	# print(words[0])
 	if words is None:
-		return render_template('404.html'), 404
+		return render_template('404.html', msg="404 angery doggos ate the page or word you were looking for"), 404
 	return render_template('list.html', words=words)
 
 # TODO for bot, return words only
