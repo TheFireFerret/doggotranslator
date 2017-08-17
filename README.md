@@ -10,9 +10,7 @@ The translation data is represented as a many-to-many database since our transla
 
 A word can only be either english or doggospeak, not both.
 
-*random translation given lol?*
-
-The data will be stored like this:
+Firebase likes flat data, so we will store the data like this:
 
 ```
 {
@@ -31,7 +29,6 @@ The data will be stored like this:
 }
 ```
 
-There are not going to be too many words, so I don't need to worry about this data organization scaling too much. The longest operation will be the initial search for the word, since it could be either in english or pupperspeak. We could seperate these commends, but a single translation command is easier for the user, especially in something like a discord bot.
 
 Both the discord bot and the website will share a single python backend on top of firebase.
 
@@ -42,3 +39,11 @@ Hosting will be done on AWS, which ~~should~~ support both the website and the b
 
 
 [use the aws docs for setup](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html) lol
+
+## Phase Two: discord bot
+This bot show allow users to request translations as well as add, remove, and edit existing ones. Addition, removal, and edits should be limited to trusted users. Maybe a dedicated discord server to maintain the bot / database?
+
+First the backend needs new api commands for the bot to use.
+
+also how to host bot???
+
